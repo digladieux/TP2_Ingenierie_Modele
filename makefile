@@ -1,7 +1,11 @@
+all: 
+	make monte_carlo
+
 .PHONY: clean check
 # FLAGS= -O2 
 FLAGS= -g 
-GENERATE_O= gcc $^ -c -o $@ $(FLAGS)
+GENERATE_EXE= mkdir -p build && gcc $^ -o $@ $(FLAGS)
+GENERATE_O= mkdir -p build && gcc $^ -c -o $@ $(FLAGS)
 clean: 
 	rm -rf build/* generator monte_carlo cppcheck.txt
 
@@ -12,13 +16,11 @@ check:
 
 ## Des deux projets
 
-all: 
-	make monte_carlo && make generator
 
 ## Monte Carlo
 
 monte_carlo: build/monte_carlo.o build/data.o build/main_monte_carlo.o build/mt19937ar.o
-	gcc $^ -o $@ $(FLAGS) -lm
+	$(GENERATE_EXE) -lm
 
 build/main_monte_carlo.o: main_monte_carlo.c
 	$(GENERATE_O)
@@ -26,13 +28,16 @@ build/main_monte_carlo.o: main_monte_carlo.c
 build/monte_carlo.o: src/monte_carlo.c
 	$(GENERATE_O)
 
+data/data.c: generator
+	./generator ${n}
+
 build/data.o: data/data.c
 	$(GENERATE_O)
 
 ## Generation du tableau de nombre aleatoire
 
 generator: build/mt19937ar.o build/main_generator.o build/generator.o
-	gcc $^ -o $@ $(FLAGS)
+	$(GENERATE_EXE) -lm
 
 build/main_generator.o: main_generator.c
 	$(GENERATE_O)

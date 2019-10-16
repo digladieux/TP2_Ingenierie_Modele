@@ -1,0 +1,7 @@
+#ifndef CONSTANTES_H
+#define CONSTANTES_H
+
+#define MAX_ITERATION 10000
+// #define MAX_ITERATION 20000000
+
+#endif

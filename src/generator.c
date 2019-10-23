@@ -1,22 +1,41 @@
+/**
+ * \file generator.c
+ * \brief Fichier pour la generation de nombres aleatoires grace aux
+ * generateurs Mercenne Twister
+ * \author GLADIEUX CUNHA Dimitri
+ * \date 17 Octobre 2019
+ */
+
 #include "../header/generator.h"
 #include "../header/mt19937ar.h"
+
 #include <stdio.h>
-void generateNumbersAndWriteIntoFile(const unsigned int nb_numbers) {
-    int i;
-    FILE * fichier = fopen("./data/data.c", "w") ;
 
-    if (!fichier)
-    {
-        return ;
-    } 
+/**
+ * \fn void generateNumbersAndWriteIntoFile(const unsigned int nb_numbers)
+ * \brief Fonction generant n nombres reels aleatoires, et les sauvegardes dans
+ * un fichier
+ * \param nb_numbers Le nombre de nombre aleatoire que l'on veut
+ * generer
+ */
+void generateNumbersAndWriteIntoFile(const int nb_numbers) {
+    FILE* data_file = fopen("./data/data.c", "w");
 
-    fputs("const double random_numbers[] = {", fichier);
-
-    for (i = 0; i < nb_numbers ; i++) {
-        fprintf(fichier, "%f,",genrand_real1());
+    if (!data_file) {
+        return;
     }
 
-    fputs("};", fichier);
-    
-    fclose(fichier) ;
-}   
+    fprintf(data_file, "long int MAX_ITERATION = %d;\n", nb_numbers);
+    fputs("double random_numbers[] = {", data_file);
+
+    if (nb_numbers > 0) {
+        int i;
+        for (i = 0; i < nb_numbers; i++) {
+            fprintf(data_file, "%f,\n", genrand_real1());
+        }
+    }
+
+    fputs("};", data_file);
+
+    fclose(data_file);
+}

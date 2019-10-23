@@ -1,6 +1,6 @@
 /**
- * \file mt19937ar.cpp
- * \brief Fonctions de generation de nombre aleatoire (Mercenne Twister)
+ * \file mt19937ar.c
+ * \brief Fichier de generation de nombre aleatoire (Mercenne Twister)
  * \author GLADIEUX CUNHA Dimitri
  * \date 18 octobre 2018
  */

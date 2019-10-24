@@ -18,14 +18,14 @@
  * \return Code erreur retourne par l'application
  */
 int main(int argc, char** argv) {
-    int nb_number ;
+    long long int nb_number ;
 
     if (argc != 2) {
         puts("Common Use : ./generator 100\n");
         return EXIT_FAILURE;
     }
 
-    if (sscanf(argv[1], "%d", &nb_number) != 1) {
+    if (sscanf(argv[1], "%lld", &nb_number) != 1) {
         puts("Error: The parameter has to be a number\n");
         return EXIT_FAILURE;
     }

@@ -19,41 +19,38 @@
  * \return Code erreur retourne par l'application
  */
 
-extern long int MAX_ITERATION ; 
+extern long long int MAX_ITERATION ; 
 void menu();
-void calc(char use_random_number_already_generated) ;
 
 int main(int argc, char ** argv)
 {
-
     if (argc == 1) {
         menu() ;
+        return EXIT_SUCCESS ;
     }
 
-    if (argc == 2 && (argv[1] == 'y' || argv[1] == 'n')) {
-        calc() ;
-    }
-    return EXIT_SUCCESS ;
-}
+    char use_random_number_already_generated = argv[1][0] ;
 
-void calc(char use_random_number_already_generated) {
-    calcTime(use_random_number_already_generated) ; 
+    if (argc == 2 && (use_random_number_already_generated == 'y' || use_random_number_already_generated == 'n')) {
+        calcTime(use_random_number_already_generated) ; 
+        return EXIT_SUCCESS ;
+    }
+    return EXIT_FAILURE ;
 }
 
 void menu() {
-    int nb_iterations, 
+    long long int nb_iterations, 
         nb_experiences ;
     char use_random_number_already_generated ;
-
     printf("\nMONTE CARLO ALGORITHM \n\n") ;
     printf("Enter a number of ITERATION and a number of EXPERIENCE\n") ;
     printf("- The numbers have to be positive\n") ;
-    printf("- The multiplication of the 2 numbers has to be inferior at %ld\n", MAX_ITERATION/2) ;
+    printf("- The multiplication of the 2 numbers has to be inferior at %lld if you use number already generated\n", MAX_ITERATION/2) ;
 
 
     do {
-        scanf("%d", &nb_iterations) ;
-        scanf("%d", &nb_experiences) ;
+        scanf("%lld", &nb_iterations) ;
+        scanf("%lld", &nb_experiences) ;
     } while ( (nb_iterations < 0) && (nb_experiences < 0) && (nb_experiences * nb_iterations > MAX_ITERATION/2) ) ;
 
     printf("Do you want to use numbers already generated or no ? \n") ;
@@ -65,8 +62,8 @@ void menu() {
     && (use_random_number_already_generated != 'n') ) ;
 
     printf("\nYou choose : \n");
-    printf("Number of ITERATION : %d", nb_iterations) ;
-    printf("\nNumber of EXPERIENCES : %d", nb_experiences) ;
+    printf("Number of ITERATION : %lld", nb_iterations) ;
+    printf("\nNumber of EXPERIENCES : %lld", nb_experiences) ;
     printf("\nNumber already generated : %c", use_random_number_already_generated) ;
     printf("\n") ;
 

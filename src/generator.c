@@ -18,14 +18,14 @@
  * \param nb_numbers Le nombre de nombre aleatoire que l'on veut
  * generer
  */
-void generateNumbersAndWriteIntoFile(const int nb_numbers) {
+void generateNumbersAndWriteIntoFile(const long long int nb_numbers) {
     FILE* data_file = fopen("./data/data.c", "w");
 
     if (!data_file) {
         return;
     }
 
-    fprintf(data_file, "long int MAX_ITERATION = %d;\n", nb_numbers);
+    fprintf(data_file, "unsigned long long int MAX_ITERATION = %lld;\n", nb_numbers);
     fputs("double random_numbers[] = {", data_file);
 
     if (nb_numbers > 0) {

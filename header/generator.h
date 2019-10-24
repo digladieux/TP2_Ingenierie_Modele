@@ -8,6 +8,6 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
-void generateNumbersAndWriteIntoFile(const int nb_numbers) ;
+void generateNumbersAndWriteIntoFile(const long long int nb_numbers) ;
 
 #endif

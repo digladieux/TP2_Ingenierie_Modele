@@ -20,9 +20,27 @@
  */
 
 extern long int MAX_ITERATION ; 
+void menu();
+void calc(char use_random_number_already_generated) ;
 
 int main(int argc, char ** argv)
 {
+
+    if (argc == 1) {
+        menu() ;
+    }
+
+    if (argc == 2 && (argv[1] == 'y' || argv[1] == 'n')) {
+        calc() ;
+    }
+    return EXIT_SUCCESS ;
+}
+
+void calc(char use_random_number_already_generated) {
+    calcTime(use_random_number_already_generated) ; 
+}
+
+void menu() {
     int nb_iterations, 
         nb_experiences ;
     char use_random_number_already_generated ;
@@ -46,7 +64,7 @@ int main(int argc, char ** argv)
     } while ( (use_random_number_already_generated != 'y') 
     && (use_random_number_already_generated != 'n') ) ;
 
-    printf("You choose : \n");
+    printf("\nYou choose : \n");
     printf("Number of ITERATION : %d", nb_iterations) ;
     printf("\nNumber of EXPERIENCES : %d", nb_experiences) ;
     printf("\nNumber already generated : %c", use_random_number_already_generated) ;
@@ -54,5 +72,4 @@ int main(int argc, char ** argv)
 
     experiencesMonteCarlo(nb_experiences, nb_iterations, use_random_number_already_generated) ;
 
-    return EXIT_SUCCESS ;
 }

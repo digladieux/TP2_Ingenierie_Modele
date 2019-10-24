@@ -10,5 +10,6 @@
 
 void experiencesMonteCarlo(const int nb_experiences, const int nb_iterations, char use_random_number_already_generated) ;
 double monteCarlo(const int begin, const int end, char use_random_number_already_generated) ;
-
+int Question7() ;
+void calcTime(char use_random_number_already_generated) ;
 #endif

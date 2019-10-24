@@ -6,10 +6,15 @@
  */
 
 #include <math.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include <sys/mman.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 #include "../header/monte_carlo.h"
 #include "../header/mt19937ar.h"
@@ -22,24 +27,67 @@ extern long int MAX_ITERATION;
 
 void isPointInsideCircle(double x, double y, unsigned int* count);
 
+int Question7() {
+
+    // char * file_name = "./data/toto.txt" ;
+    // struct stat st ;
+    // stat(file_name, &st) ;
+    // int fd = open(file_name, O_RDONLY, S_IRUSR) ;
+    // if (fd == -1) {
+    //     return EXIT_FAILURE ;
+    // }
+
+    // void* mmappedData = mmap(NULL, st.st_size, PROT_READ, MAP_PRIVATE, fd, 0) ;
+
+    // if (mmappedData == MAP_FAILED) {
+    //     return EXIT_FAILURE ;
+    // }
+    
+    // int i ;
+    
+    // write(1, mmappedData, st.st_size) ;
+    // int rc = munmap(mmappedData, st.st_size) ;
+    // if (rc != 0) {
+    //     return EXIT_FAILURE ;
+    // }
+    // close(fd) ;
+    return EXIT_SUCCESS;
+}
+
+void calcTime(char use_random_number_already_generated) {
+    int i = 0 ;
+    if (use_random_number_already_generated == 'y') {
+        for (i ; i < MAX_ITERATION ; i++) {
+            random_numbers[i];
+        }
+    }
+    else if (use_random_number_already_generated == 'n') {
+        for (i ; i < MAX_ITERATION ; i++) {
+            genrand_real2();
+        }
+    }
+}
 /**
- * \fn void experiencesMonteCarlo(const int nb_experiences, const int nb_iterations, char use_random_number_already_generated)
- * \brief Methode effectuant n experiences de Monte Carlo, avec m iterations. 
- * On definit si on souhaite utiliser des nombres deja genere ou non.
- * On calcul aussi l'ecart a la moyenne entre les resultats experimentaux du calcul de PI et la valeur theorique de ce dernier
- * \param nb_experiences Le nombre d'experiences que l'on desire
- * \param nb_iterations Le nombre d'iterations que l'on souhaite
- * \param use_random_number_already_generated Boolean qui indique si on utilise les nombres deja genere ou non
+ * \fn void experiencesMonteCarlo(const int nb_experiences, const int
+ * nb_iterations, char use_random_number_already_generated) \brief Methode
+ * effectuant n experiences de Monte Carlo, avec m iterations. On definit si on
+ * souhaite utiliser des nombres deja genere ou non. On calcul aussi l'ecart a
+ * la moyenne entre les resultats experimentaux du calcul de PI et la valeur
+ * theorique de ce dernier \param nb_experiences Le nombre d'experiences que
+ * l'on desire \param nb_iterations Le nombre d'iterations que l'on souhaite
+ * \param use_random_number_already_generated Boolean qui indique si on utilise
+ * les nombres deja genere ou non
  */
-void experiencesMonteCarlo(const int nb_experiences,
-                           const int nb_iterations,
+void experiencesMonteCarlo(const int nb_experiences, const int nb_iterations,
                            char use_random_number_already_generated) {
     unsigned int i;
     double average_gap = 0;
 
-    if ((use_random_number_already_generated != 'y') && (use_random_number_already_generated != 'n') || (nb_experiences < 0) || (nb_iterations < 0)){
-        return ; 
-    }    
+    if ((use_random_number_already_generated != 'y') &&
+            (use_random_number_already_generated != 'n') ||
+        (nb_experiences < 0) || (nb_iterations < 0)) {
+        return;
+    }
 
     for (i = 0; i < nb_experiences; i++) {
         double pi = monteCarlo(i * nb_iterations, (i + 1) * nb_iterations,
@@ -54,12 +102,13 @@ void experiencesMonteCarlo(const int nb_experiences,
 }
 
 /**
- * \fn double monteCarlo(const int begin, const int end, char use_random_number_already_generated)
- * \brief Fonction effectuant une experience de Monte Carlo, avec m iterations. On definit si on souhaite utiliser des nombres deja genere ou non
- * \param begin Le debut du tableau de nombre aleatoires
- * \param end La fin du tableau de nombre aleatoires
- * \param use_random_number_already_generated Boolean qui indique si on utilise les nombres deja genere ou non
- * \return La valeur experimentale de PI.
+ * \fn double monteCarlo(const int begin, const int end, char
+ * use_random_number_already_generated) \brief Fonction effectuant une
+ * experience de Monte Carlo, avec m iterations. On definit si on souhaite
+ * utiliser des nombres deja genere ou non \param begin Le debut du tableau de
+ * nombre aleatoires \param end La fin du tableau de nombre aleatoires \param
+ * use_random_number_already_generated Boolean qui indique si on utilise les
+ * nombres deja genere ou non \return La valeur experimentale de PI.
  */
 double monteCarlo(const int begin, const int end,
                   char use_random_number_already_generated) {
@@ -67,15 +116,18 @@ double monteCarlo(const int begin, const int end,
     unsigned int nb_iterations = end - begin, i = begin;
     unsigned int count = 0;
 
-    if (begin < 0 || end < 0 || (end > MAX_ITERATION && use_random_number_already_generated == 'y')  || (use_random_number_already_generated != 'y') && (use_random_number_already_generated != 'n') ){
-        return EXIT_FAILURE; 
+    if (begin < 0 || end < 0 ||
+        (end > MAX_ITERATION && use_random_number_already_generated == 'y') ||
+        (use_random_number_already_generated != 'y') &&
+            (use_random_number_already_generated != 'n')) {
+        return EXIT_FAILURE;
     }
-    
+
     if (use_random_number_already_generated != 'n') {
         for (i = begin; i < begin + nb_iterations * 2; i += 2) {
             x = random_numbers[i];
             y = random_numbers[i + 1];
-            isPointInsideCircle(x, y,  &count);
+            isPointInsideCircle(x, y, &count);
         }
     } else {
         for (i = begin; i < end; i++) {
@@ -85,15 +137,16 @@ double monteCarlo(const int begin, const int end,
         }
     }
 
-    return (double)count / nb_iterations * 4 ;
+    return (double)count / nb_iterations * 4;
 }
 
 /**
  * \fn void isPointInsideCircle(double x, double y, unsigned int* count)
- * \brief Methode qui indique si un point est inscrit dans un cercle de diametre 1. On incremente un compteur si c'est le cas
- * \param x Coordonnee du point x
- * \param y Coordonnee du point y
- * \param count Compteur sur le nombre de points totaux inscrit dans le cercle. C'est un pointeur car on le modifie a l'interieur de la methode
+ * \brief Methode qui indique si un point est inscrit dans un cercle de
+ * diametre 1. On incremente un compteur si c'est le cas \param x Coordonnee du
+ * point x \param y Coordonnee du point y \param count Compteur sur le nombre de
+ * points totaux inscrit dans le cercle. C'est un pointeur car on le modifie a
+ * l'interieur de la methode
  */
 void isPointInsideCircle(double x, double y, unsigned int* count) {
     double z = x * x + y * y;

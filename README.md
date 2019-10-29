@@ -95,7 +95,7 @@ On observe le résultat suivant suivant :
 - Ecart Moyen : 0.001127
 - Temps Moyen d'execution : 7.363 secondes
 
-Le temps d'execution est beaucoup plus long car on doit compiler le fichier pour obtenir le tableau. En revanche le temps d'execution uniquement de monte carlo est de 0.038 secondes, ce qui veut dire que si on veut réutiliser plusieurs fois le même programme il est préférable d'avoir générer le tableau auparavant
+Le temps de compilation est beaucoup plus long car on doit compiler le fichier pour obtenir le tableau. En revanche le temps d'execution uniquement de monte carlo est de 0.038 secondes, ce qui veut dire que si on veut réutiliser plusieurs fois le même programme il est préférable d'avoir générer le tableau auparavant
 
 ### Question 5 
 

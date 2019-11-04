@@ -1,7 +1,5 @@
 # TP2 - Ingénierie des modèles
 
-## Plan
-
 ## Architecture 
 
 Vous retrouverez dans ce projet 

@@ -103,11 +103,11 @@ Ici on regarde le temps d'execution pour générer XXX nombres ou bien les lires
 
 |Nombres de tirages|Lecture du tableau (en s)|Génération des nombres (en s)|
 |:-|:-|:-|
-|1 000 000|0.002|0.028|
-|10 000 000 000|0.002|0.080|
-|20 000 000 000|0.002|0.084|
-|50 000 000 000|0.002|0.199|
-|100 000 000 000|0.002|0.463|
+|1 000 000|0.002|0.0048|
+|10 000 000|0.002|0.040|
+|20 000 000|0.002|0.084|
+|50 000 000|0.002|0.199|
+|100 000 000|0.002|0.463|
 
 Le parcours du tableau est très très rapide (toujours 0.002 secondes), peut importe sa taille. En revanche, le temps de génération des nombres augmente avec le temps
 
